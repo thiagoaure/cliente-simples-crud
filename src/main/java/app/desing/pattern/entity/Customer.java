@@ -1,12 +1,8 @@
 package app.desing.pattern.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +13,12 @@ public class Customer {
     private String telephone;
     @Column(nullable = false)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String document;
+
     @Column(nullable = false)
     @Embedded
-    private Address address;
+    private Address address = new Address();
 
     public Long getId() {
         return id;
@@ -59,7 +56,7 @@ public class Customer {
         this.document = document;
     }
 
-    public Address getAddress() {
+   public Address getAddress() {
         return address;
     }
 
@@ -73,5 +70,7 @@ public class Customer {
         this.email = email;
         this.document = document;
         this.address = address;
+    }
+    public Customer() {
     }
 }
